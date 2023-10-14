@@ -1,2 +1,10 @@
 pre-commit
 psycopg2
+django-allauth
+django-htmx
+django-crispy-forms
+crispy_bootstrap4
+pytest-django
+pytest-factoryboy
+pytest-cov
+djangorestframework
