@@ -1,6 +1,8 @@
 from django.urls import resolve
 from django.views.generic.base import TemplateResponseMixin, ContextMixin
 from typing import Sequence
+from django_htmx.http import trigger_client_event
+from django.shortcuts import render
 
 
 class TemplateLocationMixin(TemplateResponseMixin):
@@ -68,3 +70,49 @@ class HtmxResponseMixin(TemplateLocationMixin, ContextMixin):
         else:
             context["base_template"] = f"{self.get_base_location()}/base.html"
         return context
+
+
+class ModalMixin:
+    modal_template = "blog/common/modal.html"
+    modal_title = None
+    modal_message = None
+    modal_form_action = None
+    modal_show = "modal-show"
+    modal_hx_target = None
+    modal_hx_swap = None
+    modal_allowed_close = True
+    modal_allowed_delete = False
+    modal_submit_class = "btn btn-primary"
+    modal_submit_value = "Submit"
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data()
+        response = render(
+            request,
+            self.modal_template,
+            context,
+        )
+        return trigger_client_event(response, self.modal_show)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = self.modal_title
+        context["action"] = self.modal_form_action
+        context["message"] = self.modal_message
+        context["hx_target"] = self.modal_hx_target
+        context["hx_swap"] = self.modal_hx_swap
+        context["allowed_close"] = self.modal_allowed_close
+        context["allowed_delete"] = self.modal_allowed_delete
+        context["submit_class"] = self.modal_submit_class
+        context["submit_value"] = self.modal_submit_value
+        return context
+
+    def form_invalid(self, form):
+        """If the form is invalid, render the invalid form."""
+        context = self.get_context_data(form=form)
+        response = render(
+            self.request,
+            self.modal_template,
+            context,
+        )
+        return trigger_client_event(response, self.modal_show)

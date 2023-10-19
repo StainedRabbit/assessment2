@@ -1,0 +1,27 @@
+{% if is_paginated %}
+    <nav aria-label="Page navigation example" class="mt-2">
+        <div class="row justify-content-md-center">
+            <div class="col col-lg-2">
+                {% if page_obj.has_previous %}
+                <button class="btn btn-primary btn-block"
+                    hx-get="{{ index_url }}?page={{page_obj.previous_page_number}}" hx-push-url="true"
+                    hx-target="{{ hx_target|default:"#content" }}" hx-indicator="#indicator" hx-trigger="click">
+                    Previous
+                </button>
+                {% endif %}
+            </div>
+            <div class="page-link col-md-auto">
+                Page {{ page_obj.number }} {{index_url}} of {{ page_obj.paginator.num_pages }}
+            </div>
+            <div class="col col-lg-2">
+                {% if page_obj.has_next %}
+                <button class="btn btn-primary btn-block"
+                    hx-get="{{ index_url }}?page={{page_obj.next_page_number}}" hx-push-url="true"
+                    hx-target="{{ hx_target|default:"#content" }}" hx-indicator="#indicator" hx-trigger="click">
+                    Next
+                </button>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+{% endif %}

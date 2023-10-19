@@ -1,12 +1,8 @@
 from django.db import models
 
-# used for models
 from django.utils.translation import gettext_lazy as _
-
-# It will translate the string to the activated language if you defined a translation
 from django.contrib.auth.models import AbstractUser
-
-# is the old user model
+from django.urls import reverse
 
 
 class Blogger(AbstractUser):
@@ -17,4 +13,7 @@ class Blogger(AbstractUser):
     class Meta:
         verbose_name = _("Blogger")  # human readable name for the model
         verbose_name_plural = _("Bloggers")  # plural form of the model
-        default_related_name = "blogger"  #
+        default_related_name = "bloggers"  #
+
+    def get_absolute_url(self):
+        return reverse("blog:blogger:detail", kwargs={"pk": self.pk})

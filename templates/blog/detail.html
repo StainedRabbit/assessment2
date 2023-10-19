@@ -1,0 +1,35 @@
+{% extends base_template %}
+{% block title %}Bloggeries | Blogs{% endblock title %}
+{% block page_title %}Blog detail{% endblock page_title %}
+
+{% block breadcrumb %}
+{% endblock breadcrumb %}
+
+{% block content %}
+<div class="card card-primary card-outline">
+    <div class="card-title">
+
+        <div class="m-3">
+            <h3><strong>{{object.title}}</strong></h3>
+        </div>
+    </div>
+    <div class="card-body">
+        <p>{{object.content}}</p>
+    </div>
+</div>
+
+<div><a class="m-3" href="{{ object.create_comment_url }}" hx-get="{{ object.create_comment_url }}"
+    hx-target="#dialog" hx-indicator="#indicator" hx-push-url="false">Add Comment</a></div>
+
+{% for comment in object.comments.all %}
+    <div class="card p-3 m-2">
+        <div class="card-title">
+            {{comment.blogger}}({{comment.created_at}})
+        </div>
+        <div class="card-body">
+            {{comment.comment}}
+        </div>
+    </div>
+{% endfor %}
+
+{% endblock content %}

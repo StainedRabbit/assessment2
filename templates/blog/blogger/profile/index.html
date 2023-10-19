@@ -1,5 +1,5 @@
 {% extends base_template %}
-{% block title %}Fastlane | Product{% endblock title %}
+{% block title %}Fastlane | Blogger{% endblock title %}
 {% block page_title %}Blogger{% endblock page_title %}
 
 {% block breadcrumb %}
@@ -9,11 +9,10 @@
 
 <section class="content" id="content">
     <div class="container-fluid">
-        <h1>Blogger: {{user.get_full_name}}</h1>
+        <h1>Blogger: {{object.get_full_name}}</h1>
 
         <h3>Bio</h3>
-        <p>{{user.about_me}}</p>
-
+        <p>{{object.about_me}}</p>
 
         <h3>Blogs list</h3>
   </div>
