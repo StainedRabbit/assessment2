@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+{% block app_content %}
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+      <a href="#" class="brand-link">
+          <span class="brand-text font-weight-light">Bloggeries</span>
+      </a>
+
+      <div class="sidebar">
+          <!-- Sidebar user panel (optional) -->
+          <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="info">
+              <a href="{% url 'blog:blogger:profile:index' %}" class="d-block">{{user.get_full_name}}</a>
+            </div>
+          </div>
+
+          <nav class="mt-2">
+              <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                  <li class="nav-item">
+                      <a href="{% url 'blog:index' %}" hx-get="{% url 'blog:index' %}" hx-target="#content"
+                          hx-push-url="true" hx-indicator="#indicator" class="nav-link">
+                          <i class="nav-icon fas fa-tachometer-alt"></i>
+                          <p>Home</p>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="{% url 'blog:blogs:index' %}" hx-get="{% url 'blog:blogs:index' %}" hx-target="#content"
+                          hx-push-url="true" hx-indicator="#indicator" class="nav-link">
+                          <i class="nav-icon fas fa-tachometer-alt"></i>
+                          <p>All blogs</p>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="{% url 'blog:bloggers:index' %}" hx-get="{% url 'blog:bloggers:index' %}" hx-target="#content"
+                          hx-push-url="true" hx-indicator="#indicator" class="nav-link">
+                          <i class="nav-icon fas fa-tachometer-alt"></i>
+                          <p>All bloggers</p>
+                      </a>
+                  </li>
+                  <div class="mt-5">
+                      <li class="nav-item">
+                          <a href="{% url 'account_logout' %}" class="nav-link">
+                              <i class="nav-icon fas fa-tachometer-alt"></i>
+                              <p>logout</p>
+                          </a>
+                      </li>
+                      {% comment %} <form method="post" action="{% url 'account_logout' %}">
+                          {% csrf_token %}
+
+                          <button type="submit" class="btn btn-danger btn-block">logout</button>
+                      </form> {% endcomment %}
+                  </div>
+              </ul>
+          </nav>
+      </div>
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0" id="page_title">
+                {% block page_title %}{% endblock page_title %}
+              </h1>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6">
+              <ol id="breadcrumb" class="breadcrumb float-sm-right">
+                {% block breadcrumb %} {% endblock breadcrumb %}
+              </ol>
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+      </div>
+      <!-- /.content-header -->
+
+      <!-- Main content -->
+      <div class="content" id="content">
+        {% block content %} {% endblock content %}
+      </div>
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <div id="modal" class="modal fade" >
+      <div id="dialog" class="modal-dialog" hx-target="this">
+      </div>
+    </div>
+
+  {% endblock app_content %}
+
+  <!-- Main Footer -->
+  <footer class="main-footer">
+      <!-- To the right -->
+      <div class="float-right d-none d-sm-inline">Bloggeries</div>
+      <!-- Default to the left -->
+      <strong>Copyright &copy; 2014-2023
+      <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+      All rights reserved.
+  </footer>
+  {% endblock body %}

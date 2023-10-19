@@ -1,0 +1,21 @@
+{% extends base_template %}
+{% block title %}Fastlane | Blogger{% endblock title %}
+{% block page_title %}Blogger{% endblock page_title %}
+
+{% block breadcrumb %}
+{% endblock breadcrumb %}
+
+{% block content %}
+
+<section class="content" id="content">
+    <div class="container-fluid">
+        <h1>Blogger: {{object.get_full_name}}</h1>
+
+        <h3>Bio</h3>
+        <p>{{object.about_me}}</p>
+
+        <h3>Blogs list</h3>
+  </div>
+</section>
+
+{% endblock content %}

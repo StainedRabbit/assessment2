@@ -1,0 +1,15 @@
+<title hx-swap-oob="innerHTML:title">
+  {% block title %}{% endblock title %}
+</title>
+
+<h1 id="page_title" hx-swap-oob="innerHTML">
+  {% block page_title %} {% endblock page_title %}
+</h1>
+
+<ol id="breadcrumb" class="breadcrumb float-sm-right" hx-swap-oob="innerHTML">
+  {% block breadcrumb %} {% endblock breadcrumb %}
+</ol>
+
+<section class="content" id="content">
+  {% block content %} {% endblock content %}
+</section>

@@ -1,0 +1,24 @@
+{% load crispy_forms_tags %}
+<div class="modal-content">
+  <div class="modal-header">
+    <h4 class="modal-title mr-3">{{ title }}</h4>
+    {% comment %} <button type="button" class="close" onclick="$('#dialog').modal('hide');" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button> {% endcomment %}
+  </div>
+  <div class="modal-body">
+    {% if message %}
+    <h5>{{ message|safe }}</h5>
+    {% endif %}
+    <form method="POST" action="{{ action }}" hx-boost="true" hx-push-url="false" hx-indicator="#indicator"
+      {% if hx_target %}hx-target="{{ hx_target }}" {% endif %}{% if hx_swap %}hx-swap="{{ hx_swap }}" {% endif %}>
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input type="submit" class="{{ submit_class }}" value="{{ submit_value }}" />
+      {% if allowed_delete  %}
+      <a href="{{ object.delete_url }}" hx-get="{{ object.delete_url }}" hx-target="#dialog" hx-swap="innerHTML"
+        hx-push-url="false" hx-indicator="#indicator" class="btn btn-danger float-right">Delete</a>
+      {% endif %}
+    </form>
+  </div>
+</div>

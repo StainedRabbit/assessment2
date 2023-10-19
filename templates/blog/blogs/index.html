@@ -1,0 +1,28 @@
+{% extends base_template %}
+{% block title %}Bloggeries | Blogs{% endblock title %}
+{% block page_title %}Blog list{% endblock page_title %}
+
+{% block breadcrumb %}
+{% endblock breadcrumb %}
+
+{% block content %}
+<div class="card-body">
+    <table class="table table-bordered">
+        <thead>
+            <th>title</th>
+            <th>date</th>
+            <th>blogger</th>
+        </thead>
+    <tbody>
+        {% for blog in object_list %}
+            <tr href="{{ blog.get_absolute_url }}" hx-get="{{ blog.get_absolute_url }}" hx-target="#content" hx-indicator="#indicator" hx-push-url="true">
+                <td>{{ blog.title }}</td>
+                <td>{{ blog.created_at }}</td>
+                <td>{{ blog.blogger }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+    {% include "blog/include/pagination.html"%}
+</div>
+{% endblock content %}
